@@ -48,17 +48,7 @@ At a high level it provides tools for:
 - `find_files`
 - `list_dir`
 
-The search output profile is controlled with `PGR_OUTPUT_PROFILE`.
-
-Supported profiles include:
-
-- `v3`
-- `empty_only`
-- `summary_only`
-- `counts_empty`
-- `full_v4`
-
-If `PGR_OUTPUT_PROFILE` is unset, the server defaults to `full_v4`.
+The search output profile is controlled with `PGR_OUTPUT_PROFILE`. If it is unset, the server defaults to the richer planner-oriented output profile used in the public results.
 
 ## Public benchmark packages
 
@@ -71,11 +61,9 @@ Key packages:
 - [`public_release/benchmarks/entireio_cli_fff_vs_baseline_public60/README.md`](public_release/benchmarks/entireio_cli_fff_vs_baseline_public60/README.md)
   - speed-oriented benchmark comparing `ripgrep` and `fff`
 - [`public_release/benchmarks/entireio_cli_ranking_public60/README.md`](public_release/benchmarks/entireio_cli_ranking_public60/README.md)
-  - broad mixed-workload benchmark comparing `baseline`, `fff`, `rg_ranked`, and `pgr_v4`
+  - broad mixed-workload benchmark comparing `baseline`, `fff`, and `pgr`
 - [`public_release/benchmarks/entireio_cli_offline_ir_public60/README.md`](public_release/benchmarks/entireio_cli_offline_ir_public60/README.md)
   - offline retrieval replay benchmark built from real agent-issued queries
-- [`public_release/benchmarks/entireio_cli_planner_public40/README.md`](public_release/benchmarks/entireio_cli_planner_public40/README.md)
-  - planner-focused benchmark derived from the saved public runs
 
 ## Repository scope
 

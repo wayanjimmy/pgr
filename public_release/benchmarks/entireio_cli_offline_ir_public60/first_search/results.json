@@ -1176,37 +1176,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "02d49af5bfe0_r0:q1",
-      "run_id": "02d49af5bfe0_r0",
-      "task_id": "02d49af5bfe0",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "checkpoint",
-      "tool_input": {
-        "query": "checkpoint",
-        "file_type": "go",
-        "max_files": 15
-      },
-      "relevant_files": [
-        "e2e/tests/session_lifecycle_test.go",
-        "e2e/tests/subagent_commit_flow_test.go",
-        "e2e/tests/single_session_test.go",
-        "e2e/tests/mid_turn_commit_test.go",
-        "e2e/tests/edge_cases_test.go"
-      ],
-      "prompt": "can you look through the tests, we should have one that validates commits during a session (made by claude) are getting checkpoint trailers and condension works, or? should be integration tests?"
-    },
-    {
-      "files_returned": 15,
-      "output_chars": 4009,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "02d49af5bfe0_r0:q1",
       "run_id": "02d49af5bfe0_r0",
       "task_id": "02d49af5bfe0",
@@ -1290,34 +1260,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "0b79e8932981_r0:q1",
-      "run_id": "0b79e8932981_r0",
-      "task_id": "0b79e8932981",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "attribution",
-      "tool_input": {
-        "query": "attribution",
-        "context_before": 2,
-        "context_after": 2
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/manual_commit_attribution.go",
-        "docs/architecture/attribution.md"
-      ],
-      "prompt": "can you take a look at the attribution logic, can you explain me again why we don't track deleted lines"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 3010,
-      "first_relevant_rank": 6,
-      "mrr": 0.16666666666666666,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "0b79e8932981_r0:q1",
       "run_id": "0b79e8932981_r0",
       "task_id": "0b79e8932981",
@@ -1406,38 +1349,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "1d44b085fc12_r0:q1",
-      "run_id": "1d44b085fc12_r0",
-      "task_id": "1d44b085fc12",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "bearer token",
-      "tool_input": {
-        "query": "bearer token"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/api/client.go",
-        "cmd/entire/cli/api_client.go",
-        "cmd/entire/cli/auth/client.go",
-        "cmd/entire/cli/search/search.go",
-        "cmd/entire/cli/versioncheck/versioncheck.go",
-        "cmd/entire/cli/search_cmd.go",
-        "cmd/entire/cli/api/base_url.go",
-        "cmd/entire/cli/versioncheck/types.go"
-      ],
-      "prompt": "find parts which are talking to the entire API via HTTP - add a global request handler to use the bearer token obtained via the cli login flow"
-    },
-    {
-      "files_returned": 3,
-      "output_chars": 802,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "1d44b085fc12_r0:q1",
       "run_id": "1d44b085fc12_r0",
       "task_id": "1d44b085fc12",
@@ -1518,32 +1430,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "20388d3a424a_r0:q1",
-      "run_id": "20388d3a424a_r0",
-      "task_id": "20388d3a424a",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "TruncateRunes",
-      "tool_input": {
-        "query": "TruncateRunes"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/utils.go",
-        "cmd/entire/cli/stringutil/stringutil.go"
-      ],
-      "prompt": "can you take a look at: The exported wrapper functions TruncateRunes and CapitalizeFirst in utils.go are not used anywhere in the codebase. Code directly imports and uses stringutil.TruncateRunes and stringutil.CapitalizeFirst instead. Consider removing these unused wrapper functions to reduce code duplication, or document why they exist if they're intended for external use."
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2124,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "20388d3a424a_r0:q1",
       "run_id": "20388d3a424a_r0",
       "task_id": "20388d3a424a",
@@ -1620,33 +1507,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "2084a83cf3a3_r0:q1",
-      "run_id": "2084a83cf3a3_r0",
-      "task_id": "2084a83cf3a3",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "shadow branch",
-      "tool_input": {
-        "query": "shadow branch",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "cmd/entire/cli/checkpoint/temporary.go"
-      ],
-      "prompt": "can you check if commits into the shadow branch ignore .gitignore?"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 3407,
-      "first_relevant_rank": 6,
-      "mrr": 0.16666666666666666,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "2084a83cf3a3_r0:q1",
       "run_id": "2084a83cf3a3_r0",
       "task_id": "2084a83cf3a3",
@@ -1736,39 +1597,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "2458c3b38f2c_r0:q1",
-      "run_id": "2458c3b38f2c_r0",
-      "task_id": "2458c3b38f2c",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "paths:",
-      "tool_input": {
-        "query": "paths:",
-        "path_glob": "**/.github/workflows/*.yml"
-      },
-      "relevant_files": [
-        "CLAUDE.md",
-        ".github/workflows/ci.yml",
-        ".github/workflows/e2e.yml",
-        ".github/CODEOWNERS",
-        ".github/workflows/pr-binary-size.yml",
-        "mise-tasks/test/e2e/canary",
-        "mise-tasks/test/e2e/_default",
-        ".github/workflows/lint.yml"
-      ],
-      "prompt": "We have instructions for E2E test in CLAUDE.md to basically not run them except especially asked. The issue is now that it would be good to flag that E2E changes are needed to the developer but also to CLAUDE.md. We run the E2E tests now on merge to main. So ideally we somehow flag this before without runnig the tests. Any other ideas?"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "2458c3b38f2c_r0:q1",
       "run_id": "2458c3b38f2c_r0",
       "task_id": "2458c3b38f2c",
@@ -1858,36 +1687,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "2a075ef186b4_r0:q1",
-      "run_id": "2a075ef186b4_r0",
-      "task_id": "2a075ef186b4",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "CheckpointID",
-      "tool_input": {
-        "query": "CheckpointID",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/checkpoint/id/id.go",
-        "cmd/entire/cli/checkpoint/id/id_test.go",
-        "cmd/entire/cli/integration_test/testenv.go",
-        "cmd/entire/cli/trailers/trailers.go",
-        "cmd/entire/cli/strategy/manual_commit_hooks.go"
-      ],
-      "prompt": "Direct id.CheckpointID(string) casts skip validation logic, Add validation helper or constructor that's consistently used instead of direct type casts"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2772,
-      "first_relevant_rank": 4,
-      "mrr": 0.25,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "2a075ef186b4_r0:q1",
       "run_id": "2a075ef186b4_r0",
       "task_id": "2a075ef186b4",
@@ -1992,45 +1792,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "2baba34463b5_r0:q1",
-      "run_id": "2baba34463b5_r0",
-      "task_id": "2baba34463b5",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "test:e2e:claude",
-      "tool_input": {
-        "query": "test:e2e:claude"
-      },
-      "relevant_files": [
-        "mise.toml",
-        "e2e/agents/claude.go",
-        "e2e/agents/gemini.go",
-        "e2e/agents/agent.go",
-        "mise-tasks/test/e2e/_default",
-        "mise-tasks/test/e2e/canary",
-        "mise-tasks/test/e2e/roger-roger",
-        "e2e/agents/opencode.go",
-        "e2e/agents/copilot-cli.go",
-        "e2e/agents/cursor_cli.go",
-        "e2e/agents/codex.go",
-        ".github/workflows/e2e.yml",
-        ".github/workflows/nightly.yml",
-        "e2e/agents/droid.go",
-        "e2e/agents/vogon.go"
-      ],
-      "prompt": "can we add e2e tests similar to those for gemini/claude (mise run test:e2e:claude)"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "2baba34463b5_r0:q1",
       "run_id": "2baba34463b5_r0",
       "task_id": "2baba34463b5",
@@ -2132,39 +1894,7 @@
       "hit_at_1": false,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "2c5705f6152f_r0:q1",
-      "run_id": "2c5705f6152f_r0",
-      "task_id": "2c5705f6152f",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "trails",
-      "tool_input": {
-        "query": "trails",
-        "file_type": "go",
-        "max_files": 10
-      },
-      "relevant_files": [
-        "cmd/entire/cli/trail_cmd.go",
-        "cmd/entire/cli/api/trail_types.go",
-        "cmd/entire/cli/api_client.go",
-        "cmd/entire/cli/auth/store.go",
-        "cmd/entire/cli/auth/client.go",
-        "cmd/entire/cli/api/client.go",
-        "cmd/entire/cli/api/base_url.go"
-      ],
-      "prompt": "explain how auth and identity checks work right now for the trails command"
-    },
-    {
-      "files_returned": 9,
-      "output_chars": 1872,
-      "first_relevant_rank": 3,
-      "mrr": 0.3333333333333333,
-      "hit_at_1": false,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "2c5705f6152f_r0:q1",
       "run_id": "2c5705f6152f_r0",
       "task_id": "2c5705f6152f",
@@ -2254,36 +1984,7 @@
       "hit_at_1": false,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "30646c347ecd_r0:q1",
-      "run_id": "30646c347ecd_r0",
-      "task_id": "30646c347ecd",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire rewind",
-      "tool_input": {
-        "query": "entire rewind"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/rewind.go",
-        "README.md",
-        "e2e/tests/rewind_test.go",
-        "cmd/entire/cli/strategy/manual_commit_rewind.go",
-        "cmd/entire/cli/strategy/strategy.go",
-        "e2e/entire/entire.go"
-      ],
-      "prompt": "Can you explain to me what `entire rewind` does and how it works? Start on a high level and show me what a user would see and example how and why they'd"
-    },
-    {
-      "files_returned": 5,
-      "output_chars": 1316,
-      "first_relevant_rank": 2,
-      "mrr": 0.5,
-      "hit_at_1": false,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "30646c347ecd_r0:q1",
       "run_id": "30646c347ecd_r0",
       "task_id": "30646c347ecd",
@@ -2368,35 +2069,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "37f449ec7d97_r0:q1",
-      "run_id": "37f449ec7d97_r0",
-      "task_id": "37f449ec7d97",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "codex auth",
-      "tool_input": {
-        "query": "codex auth",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "e2e/agents/codex.go",
-        "e2e/agents/codex_test.go",
-        "e2e/README.md",
-        "e2e/bootstrap/main.go"
-      ],
-      "prompt": "how does auth work for codex with e2e"
-    },
-    {
-      "files_returned": 1,
-      "output_chars": 159,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "37f449ec7d97_r0:q1",
       "run_id": "37f449ec7d97_r0",
       "task_id": "37f449ec7d97",
@@ -2476,33 +2149,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "3906e953d4ef_r0:q1",
-      "run_id": "3906e953d4ef_r0",
-      "task_id": "3906e953d4ef",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire explain",
-      "tool_input": {
-        "query": "entire explain"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/explain.go",
-        "cmd/entire/cli/checkpoint/committed.go",
-        "cmd/entire/cli/checkpoint/v2_read.go"
-      ],
-      "prompt": "where does `entire explain` get the checkpoints from?"
-    },
-    {
-      "files_returned": 5,
-      "output_chars": 1407,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "3906e953d4ef_r0:q1",
       "run_id": "3906e953d4ef_r0",
       "task_id": "3906e953d4ef",
@@ -2576,31 +2223,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "3afc9eb5cf12_r0:q1",
-      "run_id": "3afc9eb5cf12_r0",
-      "task_id": "3afc9eb5cf12",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "transcript flush sentinel not found within timeout",
-      "tool_input": {
-        "query": "transcript flush sentinel not found within timeout"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/agent/claudecode/lifecycle.go"
-      ],
-      "prompt": "2026/03/20 20:39:18 WARN transcript flush sentinel not found within timeout, proceeding component=agent.claudecode timeout=3s"
-    },
-    {
-      "files_returned": 1,
-      "output_chars": 152,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "3afc9eb5cf12_r0:q1",
       "run_id": "3afc9eb5cf12_r0",
       "task_id": "3afc9eb5cf12",
@@ -2680,35 +2303,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "4108db521b5d_r0:q1",
-      "run_id": "4108db521b5d_r0",
-      "task_id": "4108db521b5d",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "ENTIRE_CHECKPOINT_TOKEN",
-      "tool_input": {
-        "query": "ENTIRE_CHECKPOINT_TOKEN",
-        "context_before": 5,
-        "context_after": 5
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/checkpoint_token.go",
-        "cmd/entire/cli/strategy/checkpoint_remote.go",
-        "cmd/entire/cli/strategy/push_common.go"
-      ],
-      "prompt": "While using the ENTIRE_CHECKPOINT_TOKEN, users notice that it is starting a checkpoint branch from scratch, although there was one already in place with some checkpoints. Investigate why the use of ENTIRE_CHECKPOINT_TOKEN could be leading to this."
-    },
-    {
-      "files_returned": 3,
-      "output_chars": 642,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "4108db521b5d_r0:q1",
       "run_id": "4108db521b5d_r0",
       "task_id": "4108db521b5d",
@@ -2796,37 +2391,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "5adf55c634da_r0:q1",
-      "run_id": "5adf55c634da_r0",
-      "task_id": "5adf55c634da",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "FAIL\\|failing\\|error\\|assert",
-      "tool_input": {
-        "query": "FAIL\\|failing\\|error\\|assert",
-        "context_before": 2,
-        "context_after": 2,
-        "max_files": 5
-      },
-      "relevant_files": [
-        "AGENTS.md",
-        "CLAUDE.md",
-        ".git/logs/HEAD",
-        ".git/refs"
-      ],
-      "prompt": "Please fix the failing test:"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "5adf55c634da_r0:q1",
       "run_id": "5adf55c634da_r0",
       "task_id": "5adf55c634da",
@@ -2920,39 +2485,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "5eec47c03756_r0:q1",
-      "run_id": "5eec47c03756_r0",
-      "task_id": "5eec47c03756",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "go-git",
-      "tool_input": {
-        "query": "go-git",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/trail/store.go",
-        "cmd/entire/cli/checkpoint/store.go",
-        "cmd/entire/cli/checkpoint/parse_tree.go",
-        "cmd/entire/cli/checkpoint/fetching_tree.go",
-        "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
-        "cmd/entire/cli/checkpoint/committed.go",
-        "cmd/entire/cli/checkpoint/checkpoint.go",
-        "cmd/entire/cli/checkpoint/temporary.go"
-      ],
-      "prompt": "The handling of trees via go-git seem to not be working effectively and erroring early, as not all objects are present. This is the current error:"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 1863,
-      "first_relevant_rank": 4,
-      "mrr": 0.25,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "5eec47c03756_r0:q1",
       "run_id": "5eec47c03756_r0",
       "task_id": "5eec47c03756",
@@ -3060,45 +2593,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "61de2c90668f_r0:q1",
-      "run_id": "61de2c90668f_r0",
-      "task_id": "61de2c90668f",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "git.PlainInit(",
-      "tool_input": {
-        "query": "git.PlainInit(",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/integration_test/testenv.go",
-        "cmd/entire/cli/testutil/testutil.go",
-        "cmd/entire/cli/session/state_test.go",
-        "cmd/entire/cli/reset_test.go",
-        "cmd/entire/cli/strategy/phase_wiring_test.go",
-        "cmd/entire/cli/strategy/clean_test.go",
-        "cmd/entire/cli/git_operations_test.go",
-        "cmd/entire/cli/state_test.go",
-        "cmd/entire/cli/explain_test.go",
-        "cmd/entire/cli/strategy/rewind_test.go",
-        "cmd/entire/cli/checkpoint/checkpoint_test.go",
-        "cmd/entire/cli/status_test.go",
-        "cmd/entire/cli/clean_test.go",
-        "cmd/entire/cli/strategy/phase_postcommit_test.go"
-      ],
-      "prompt": "I think it's better to use `env.InitRepo()` instead of `git.PlainInit()` in tests."
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "61de2c90668f_r0:q1",
       "run_id": "61de2c90668f_r0",
       "task_id": "61de2c90668f",
@@ -3192,35 +2687,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "6dcf16e1b2ba_r0:q1",
-      "run_id": "6dcf16e1b2ba_r0",
-      "task_id": "6dcf16e1b2ba",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "git push",
-      "tool_input": {
-        "query": "git push",
-        "path_glob": "e2e/**/*.go",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "e2e/tests/resume_remote_test.go",
-        "e2e/testutil/repo.go"
-      ],
-      "prompt": "what's the coverage for e2e and integration tests in regards to git push / git pull (everything remote related)"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "6dcf16e1b2ba_r0:q1",
       "run_id": "6dcf16e1b2ba_r0",
       "task_id": "6dcf16e1b2ba",
@@ -3314,40 +2781,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "751884f8707a_r0:q1",
-      "run_id": "751884f8707a_r0",
-      "task_id": "751884f8707a",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "codex",
-      "tool_input": {
-        "query": "codex",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "cmd/entire/cli/agent/codex/lifecycle.go",
-        "cmd/entire/cli/agent/registry.go",
-        "cmd/entire/cli/agent/session.go",
-        "cmd/entire/cli/sessions.go",
-        "cmd/entire/cli/strategy/session.go",
-        "cmd/entire/cli/strategy/session_state.go",
-        "cmd/entire/cli/session/phase.go",
-        "cmd/entire/cli/session/state.go"
-      ],
-      "prompt": "We got a report yesterday from someone who enabled agents claude and codex using entire configure, then they manually committed, and they said reviewing with codex it seems to be an issue on the CLI on how it opens a session and if it fails it remains open and fallbacks to Claude Code which is the default value, here is their entire status, remotion-demos/public/screenshots/image.png\\"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 3246,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "751884f8707a_r0:q1",
       "run_id": "751884f8707a_r0",
       "task_id": "751884f8707a",
@@ -3438,36 +2872,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "77072abe499b_r0:q1",
-      "run_id": "77072abe499b_r0",
-      "task_id": "77072abe499b",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "claude_full.jsonl",
-      "tool_input": {
-        "query": "claude_full.jsonl",
-        "path_glob": "**/*_test.go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/transcript/compact/testdata/claude_full.jsonl",
-        "cmd/entire/cli/transcript/compact/testdata/claude_expected.jsonl",
-        "cmd/entire/cli/transcript/compact/testdata/claude_expected2.jsonl",
-        "cmd/entire/cli/transcript/compact/compact.go",
-        "cmd/entire/cli/transcript/compact/compact_test.go"
-      ],
-      "prompt": "generate a `claude_expected.jsonl` testdata fixture file from cmd/entire/cli/transcript/compact/testdata/claude_full.jsonl"
-    },
-    {
-      "files_returned": 1,
-      "output_chars": 173,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "77072abe499b_r0:q1",
       "run_id": "77072abe499b_r0",
       "task_id": "77072abe499b",
@@ -3550,34 +2955,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "7d66f047ac98_r0:q1",
-      "run_id": "7d66f047ac98_r0",
-      "task_id": "7d66f047ac98",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire session list",
-      "tool_input": {
-        "query": "entire session list"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/manual_commit_logs.go",
-        "cmd/entire/cli/strategy/session.go",
-        "cmd/entire/cli/strategy/common.go",
-        "cmd/entire/cli/strategy/manual_commit_session.go"
-      ],
-      "prompt": "on which data does \"entire session list\" operates?"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "7d66f047ac98_r0:q1",
       "run_id": "7d66f047ac98_r0",
       "task_id": "7d66f047ac98",
@@ -3654,32 +3032,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "85df9ac94bc7_r0:q1",
-      "run_id": "85df9ac94bc7_r0",
-      "task_id": "85df9ac94bc7",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "nolint.*complexity",
-      "tool_input": {
-        "query": "nolint.*complexity"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/lifecycle.go",
-        "cmd/entire/cli/trail_cmd.go"
-      ],
-      "prompt": "when you added no lint error for complexity, shoudl we readdress that?"
-    },
-    {
-      "files_returned": 1,
-      "output_chars": 264,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "85df9ac94bc7_r0:q1",
       "run_id": "85df9ac94bc7_r0",
       "task_id": "85df9ac94bc7",
@@ -3764,37 +3117,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "87d00b47af3f_r0:q1",
-      "run_id": "87d00b47af3f_r0",
-      "task_id": "87d00b47af3f",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "plugin",
-      "tool_input": {
-        "query": "plugin",
-        "path_glob": "**/main.go"
-      },
-      "relevant_files": [
-        "cmd/entire/main.go",
-        "cmd/entire/cli/root.go",
-        "cmd/entire/cli/global_test.go",
-        "cmd/entire/cli/strategy/global_test.go",
-        "cmd/entire/cli/checkpoint/global_test.go",
-        "go.mod"
-      ],
-      "prompt": "Review and improve the plugin registration within the main.go. Extract that logic into its own func."
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "87d00b47af3f_r0:q1",
       "run_id": "87d00b47af3f_r0",
       "task_id": "87d00b47af3f",
@@ -3878,34 +3201,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "897eb280e769_r0:q1",
-      "run_id": "897eb280e769_r0",
-      "task_id": "897eb280e769",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "ShadowBranchNameForCommit",
-      "tool_input": {
-        "query": "ShadowBranchNameForCommit"
-      },
-      "relevant_files": [
-        "docs/architecture/sessions-and-checkpoints.md",
-        "docs/architecture/checkpoint-scenarios.md",
-        "checkpoint/temporary.go",
-        "cmd/entire/cli/checkpoint/temporary.go"
-      ],
-      "prompt": "Can you read docs/architecture/shadow-branch-suffixes.md, I'd like to modify this approach: I don't think we need suffixes but instead we just use one branch, is there overlap in files we continue, if there is no overlap and the new session did create local changes, then we reset the shadow branch to a clean state. Can you ultrathink about it and come up with a new plan?"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2828,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "897eb280e769_r0:q1",
       "run_id": "897eb280e769_r0",
       "task_id": "897eb280e769",
@@ -3984,33 +3280,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "8a01af2a474f_r0:q1",
-      "run_id": "8a01af2a474f_r0",
-      "task_id": "8a01af2a474f",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "GetWorkTreePath",
-      "tool_input": {
-        "query": "GetWorkTreePath"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/common.go",
-        "cmd/entire/cli/paths/worktree.go",
-        "cmd/entire/cli/paths/paths.go"
-      ],
-      "prompt": "in common.go we have a GetWorkTreePath function that i think shoudl be able to be acached like RepoRoot and GetCommonDir functions. Look at thos and update the GetworktreePath function:"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "8a01af2a474f_r0:q1",
       "run_id": "8a01af2a474f_r0",
       "task_id": "8a01af2a474f",
@@ -4094,36 +3364,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "8b5b4eca788e_r0:q1",
-      "run_id": "8b5b4eca788e_r0",
-      "task_id": "8b5b4eca788e",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "TestSingleSessionSubagentCommitInTurn",
-      "tool_input": {
-        "query": "TestSingleSessionSubagentCommitInTurn"
-      },
-      "relevant_files": [
-        "e2e/tests/single_session_test.go",
-        "e2e/testutil/assertions.go",
-        "cmd/entire/cli/strategy/cleanup.go",
-        "cmd/entire/cli/strategy/manual_commit_git.go",
-        "cmd/entire/cli/strategy/manual_commit_condensation.go",
-        "cmd/entire/cli/strategy/common.go"
-      ],
-      "prompt": "I am running this test on Windows TestSingleSessionSubagentCommitInTurn. And it is failing, not always, it fails because after running the test we identify that there is a shadow branch that should not be there. I copied the entire.log on windows execution windows-broken-test.json (failing one) and the same test but this time running on macos the entire.log are inside mac-ok-test.json."
-    },
-    {
-      "files_returned": 1,
-      "output_chars": 223,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "8b5b4eca788e_r0:q1",
       "run_id": "8b5b4eca788e_r0",
       "task_id": "8b5b4eca788e",
@@ -4200,31 +3441,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "94de498254e2_r0:q1",
-      "run_id": "94de498254e2_r0",
-      "task_id": "94de498254e2",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire clean",
-      "tool_input": {
-        "query": "entire clean"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/clean.go"
-      ],
-      "prompt": "can you help me understand what `entire clean` is doing?"
-    },
-    {
-      "files_returned": 6,
-      "output_chars": 1438,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "94de498254e2_r0:q1",
       "run_id": "94de498254e2_r0",
       "task_id": "94de498254e2",
@@ -4320,43 +3537,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "979a49177542_r0:q1",
-      "run_id": "979a49177542_r0",
-      "task_id": "979a49177542",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "droid",
-      "tool_input": {
-        "query": "droid"
-      },
-      "relevant_files": [
-        "e2e/agents/droid.go",
-        "e2e/README.md",
-        "cmd/entire/cli/agent/factoryaidroid/factoryaidroid.go",
-        "cmd/entire/cli/agent/factoryaidroid/hooks.go",
-        "cmd/entire/cli/agent/factoryaidroid/lifecycle.go",
-        "e2e/tests/factory_hooks_test.go",
-        "cmd/entire/cli/agent/factoryaidroid/factoryaidroid_test.go",
-        "cmd/entire/cli/agent/factoryaidroid/hooks_test.go",
-        "CLAUDE.md",
-        "cmd/entire/cli/agent/factoryaidroid/lifecycle_test.go",
-        "cmd/entire/cli/integration_test/agent_test.go",
-        "cmd/entire/cli/agent/factoryaidroid/transcript.go",
-        "docs/architecture/agent-guide.md"
-      ],
-      "prompt": "give me steps to manually test my droid additions"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2626,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "979a49177542_r0:q1",
       "run_id": "979a49177542_r0",
       "task_id": "979a49177542",
@@ -4450,36 +3631,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "97c75100bbac_r0:q1",
-      "run_id": "97c75100bbac_r0",
-      "task_id": "97c75100bbac",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "TruncateTranscriptAtUUID",
-      "tool_input": {
-        "query": "TruncateTranscriptAtUUID"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/transcript.go",
-        "cmd/entire/cli/rewind.go",
-        "cmd/entire/cli/transcript/types.go",
-        "cmd/entire/cli/transcript/parse.go",
-        "cmd/entire/cli/types.go",
-        "cmd/entire/cli/transcript_test.go"
-      ],
-      "prompt": "why was `TruncateTranscriptAtUUID` the function changed? and same with `writeTranscript`? was changing transcript -> lines necessary?"
-    },
-    {
-      "files_returned": 3,
-      "output_chars": 728,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "97c75100bbac_r0:q1",
       "run_id": "97c75100bbac_r0",
       "task_id": "97c75100bbac",
@@ -4560,33 +3712,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "9d54ae3daa05_r0:q1",
-      "run_id": "9d54ae3daa05_r0",
-      "task_id": "9d54ae3daa05",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire status --detailed",
-      "tool_input": {
-        "query": "entire status --detailed"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/status.go",
-        "cmd/entire/cli/status_test.go",
-        "cmd/entire/cli/status_style.go"
-      ],
-      "prompt": "Can you confirm things are working correctly for \"entire status --detailed\"?"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "9d54ae3daa05_r0:q1",
       "run_id": "9d54ae3daa05_r0",
       "task_id": "9d54ae3daa05",
@@ -4670,36 +3796,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "9de3322f8275_r0:q1",
-      "run_id": "9de3322f8275_r0",
-      "task_id": "9de3322f8275",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "gmeta",
-      "tool_input": {
-        "query": "gmeta",
-        "file_type": "go",
-        "max_files": 20
-      },
-      "relevant_files": [
-        "cmd/entire/cli/sessions.go",
-        "cmd/entire/cli/metadata.go",
-        "cmd/entire/cli/strategy/session_state.go",
-        "cmd/entire/cli/session/state.go"
-      ],
-      "prompt": "let's add Read-side support (entire session list/show reading from gmeta) next"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "9de3322f8275_r0:q1",
       "run_id": "9de3322f8275_r0",
       "task_id": "9de3322f8275",
@@ -4798,42 +3895,7 @@
       "hit_at_1": false,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "9f325be721aa_r0:q1",
-      "run_id": "9f325be721aa_r0",
-      "task_id": "9f325be721aa",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "transcriptLine",
-      "tool_input": {
-        "query": "transcriptLine",
-        "path_glob": "cmd/entire/cli/*.go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/transcript.go",
-        "cmd/entire/cli/agent/claudecode/transcript.go",
-        "cmd/entire/cli/agent/codex/transcript.go",
-        "cmd/entire/cli/agent/copilotcli/transcript.go",
-        "cmd/entire/cli/agent/cursor/transcript.go",
-        "cmd/entire/cli/agent/geminicli/transcript.go",
-        "cmd/entire/cli/agent/opencode/transcript.go",
-        "cmd/entire/cli/agent/factoryaidroid/transcript.go",
-        "cmd/entire/cli/transcript/types.go",
-        "cmd/entire/cli/transcript/parse.go",
-        "cmd/entire/cli/transcript_test.go"
-      ],
-      "prompt": "have a look at docs/plans/2026-03-04-transcript-parsing-replacement.md - can we implement phase 0 please? (refactor)"
-    },
-    {
-      "files_returned": 4,
-      "output_chars": 812,
-      "first_relevant_rank": 2,
-      "mrr": 0.5,
-      "hit_at_1": false,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "9f325be721aa_r0:q1",
       "run_id": "9f325be721aa_r0",
       "task_id": "9f325be721aa",
@@ -4926,36 +3988,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "a70d97c363c8_r0:q1",
-      "run_id": "a70d97c363c8_r0",
-      "task_id": "a70d97c363c8",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "checkpoint commit",
-      "tool_input": {
-        "query": "checkpoint commit",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "docs/architecture/sessions-and-checkpoints.md",
-        "docs/architecture/checkpoint-scenarios.md",
-        "cmd/entire/cli/strategy/manual_commit_git.go",
-        "cmd/entire/cli/strategy/manual_commit_condensation.go"
-      ],
-      "prompt": "Improve the documentation so that it covers the signing of checkpoint commits. For this to work:"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 1943,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "a70d97c363c8_r0:q1",
       "run_id": "a70d97c363c8_r0",
       "task_id": "a70d97c363c8",
@@ -5036,33 +4069,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "a768042b28b1_r0:q1",
-      "run_id": "a768042b28b1_r0",
-      "task_id": "a768042b28b1",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "GetSessionLog",
-      "tool_input": {
-        "query": "GetSessionLog",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/manual_commit_logs.go",
-        "cmd/entire/cli/strategy/resolve_transcript.go"
-      ],
-      "prompt": "I first want to look at GetSessionLog in manual_commit_log.go, right now this has one param called `commitHash` but in 99% of the cases we actually pass in the checkpoint id from `Entire-Checkpoint` or `Checkpoint`. The `Entire-Session` logic can go away, and the logic where it's actually a `CommitHash` I'd like to move out of this method and rather add a method doing the conversion before calling `GetSessionLog` can you show me how you would approach this?"
-    },
-    {
-      "files_returned": 4,
-      "output_chars": 1191,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "a768042b28b1_r0:q1",
       "run_id": "a768042b28b1_r0",
       "task_id": "a768042b28b1",
@@ -5150,38 +4157,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "aa5afbf6c998_r0:q1",
-      "run_id": "aa5afbf6c998_r0",
-      "task_id": "aa5afbf6c998",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "logInvalidGitTreePath",
-      "tool_input": {
-        "query": "logInvalidGitTreePath"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/checkpoint/parse_tree.go",
-        "cmd/entire/cli/checkpoint/committed.go",
-        "cmd/entire/cli/agent/factoryaidroid/transcript.go",
-        "cmd/entire/cli/logging/logger.go",
-        "cmd/entire/cli/agent/factoryaidroid/lifecycle.go",
-        "cmd/entire/cli/agent/factoryaidroid/transcript_test.go",
-        "cmd/entire/cli/attach_test.go",
-        "cmd/entire/cli/logging/context.go"
-      ],
-      "prompt": "logInvalidGitTreePath logs via slog.Warn, which bypasses the repo\u2019s cli/logging package (and can end up on stderr rather than in .entire/logs/). Consider routing this through logging.Warn (e.g., with context.Background() or by threading a ctx into callers) to keep operational logs consistent with the rest of the codebase (see cmd/entire/cli/checkpoint/committed.go where warnings go through logging.Warn)."
-    },
-    {
-      "files_returned": 2,
-      "output_chars": 550,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "aa5afbf6c998_r0:q1",
       "run_id": "aa5afbf6c998_r0",
       "task_id": "aa5afbf6c998",
@@ -5268,35 +4244,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "b6c45b0e881f_r0:q1",
-      "run_id": "b6c45b0e881f_r0",
-      "task_id": "b6c45b0e881f",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "pagina",
-      "tool_input": {
-        "query": "pagina",
-        "context_before": 2,
-        "context_after": 2
-      },
-      "relevant_files": [
-        "cmd/entire/cli/search_cmd.go",
-        "cmd/entire/cli/search_tui.go",
-        "cmd/entire/cli/search/search.go"
-      ],
-      "prompt": "I never get paginated results even when I just search for \"a\" seems like there should be more than one page"
-    },
-    {
-      "files_returned": 2,
-      "output_chars": 416,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "b6c45b0e881f_r0:q1",
       "run_id": "b6c45b0e881f_r0",
       "task_id": "b6c45b0e881f",
@@ -5382,36 +4330,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "bea7d0b9e7b8_r0:q1",
-      "run_id": "bea7d0b9e7b8_r0",
-      "task_id": "bea7d0b9e7b8",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "shadow branch",
-      "tool_input": {
-        "query": "shadow branch",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "cmd/entire/cli/agent/geminicli/lifecycle.go",
-        "cmd/entire/cli/strategy/manual_commit_condensation.go",
-        "cmd/entire/cli/strategy/hooks.go",
-        "cmd/entire/cli/strategy/manual_commit.go"
-      ],
-      "prompt": "we're running into an issue with the gemini cli where shadow branches aren't being converted to checkpoints on commit."
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 3407,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "bea7d0b9e7b8_r0:q1",
       "run_id": "bea7d0b9e7b8_r0",
       "task_id": "bea7d0b9e7b8",
@@ -5494,34 +4413,7 @@
       "hit_at_1": false,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "c07dfe9d6805_r0:q1",
-      "run_id": "c07dfe9d6805_r0",
-      "task_id": "c07dfe9d6805",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "ENTIRE_API_BASE_URL",
-      "tool_input": {
-        "query": "ENTIRE_API_BASE_URL"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/api/base_url.go",
-        "cmd/entire/cli/search_cmd.go",
-        "cmd/entire/cli/search/search.go",
-        "cmd/entire/cli/auth/client.go"
-      ],
-      "prompt": "if i run ./entire search then I see this error Error: parsing response: invalid character '<' looking for beginning of value but if I run ENTIRE_API_BASE_URL=http://localhost:8787 ENTIRE_SEARCH_URL=http://localhost:8686 ./entire search then no errors. whats going on"
-    },
-    {
-      "files_returned": 4,
-      "output_chars": 687,
-      "first_relevant_rank": 2,
-      "mrr": 0.5,
-      "hit_at_1": false,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "c07dfe9d6805_r0:q1",
       "run_id": "c07dfe9d6805_r0",
       "task_id": "c07dfe9d6805",
@@ -5600,33 +4492,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "c08972f3adb1_r0:q1",
-      "run_id": "c08972f3adb1_r0",
-      "task_id": "c08972f3adb1",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire resume",
-      "tool_input": {
-        "query": "entire resume"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/sessions.go",
-        "e2e/entire/entire.go",
-        "cmd/entire/cli/resume.go"
-      ],
-      "prompt": "Can we look at `entire sessions lists` in combination with `entire resume`:"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2321,
-      "first_relevant_rank": 5,
-      "mrr": 0.2,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "c08972f3adb1_r0:q1",
       "run_id": "c08972f3adb1_r0",
       "task_id": "c08972f3adb1",
@@ -5708,35 +4574,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "c0dbb5d73ef9_r0:q1",
-      "run_id": "c0dbb5d73ef9_r0",
-      "task_id": "c0dbb5d73ef9",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "sleep\\|time\\.Sleep\\|setTimeout\\|Thread\\.sleep",
-      "tool_input": {
-        "query": "sleep\\|time\\.Sleep\\|setTimeout\\|Thread\\.sleep",
-        "context_before": 2,
-        "context_after": 2
-      },
-      "relevant_files": [
-        "cmd/entire/cli/bench_enable_test.go",
-        "cmd/entire/cli/strategy/commit_hook_perf_test.go",
-        "cmd/entire/cli/session/state_test.go"
-      ],
-      "prompt": "I still saw slow unit test performance after applying the fixes:"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "c0dbb5d73ef9_r0:q1",
       "run_id": "c0dbb5d73ef9_r0",
       "task_id": "c0dbb5d73ef9",
@@ -5820,35 +4658,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "c283d360e6d5_r0:q1",
-      "run_id": "c283d360e6d5_r0",
-      "task_id": "c283d360e6d5",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "checkpoint",
-      "tool_input": {
-        "query": "checkpoint",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/session/state.go",
-        "cmd/entire/cli/lifecycle.go",
-        "cmd/entire/cli/strategy/manual_commit_hooks.go",
-        "cmd/entire/cli/state.go"
-      ],
-      "prompt": "Right now we store full.jsonl when doing a checkpoint in `entire/sessions` when keeping the session active with claude we commit the growing log in commit after commit. Can we take a look and see if we can get the last row from the current session log at the start of a prompt and then track that for the checkpoint? so we can know what was added during this checkpoint?"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2657,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "c283d360e6d5_r0:q1",
       "run_id": "c283d360e6d5_r0",
       "task_id": "c283d360e6d5",
@@ -5932,35 +4742,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "c6491956c19f_r0:q1",
-      "run_id": "c6491956c19f_r0",
-      "task_id": "c6491956c19f",
-      "prompt_category": "debug_or_validation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire",
-      "tool_input": {
-        "query": "entire",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/integration_test/worktree_test.go",
-        "cmd/entire/cli/agent/claudecode/hooks.go",
-        "cmd/entire/cli/paths/worktree.go",
-        "cmd/entire/cli/paths/transcript.go"
-      ],
-      "prompt": "Entire does not seem to be handling worktree paths correctly when used in combination with claude worktree feature - which places files under .claude/worktrees. Investigate the issue and create a test to confirm this is the case."
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 2578,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "c6491956c19f_r0:q1",
       "run_id": "c6491956c19f_r0",
       "task_id": "c6491956c19f",
@@ -6062,44 +4844,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "cc90f6622c5b_r0:q1",
-      "run_id": "cc90f6622c5b_r0",
-      "task_id": "cc90f6622c5b",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "os\\.Getwd()",
-      "tool_input": {
-        "query": "os\\.Getwd()",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        ".golangci.yaml",
-        "mise.toml",
-        ".github/workflows/lint.yml",
-        "mise-tasks/lint/_default",
-        "mise-tasks/lint/go",
-        "mise-tasks/lint/gofmt",
-        "mise-tasks/lint/gomod",
-        "mise-tasks/lint/licenses",
-        "mise-tasks/lint/shellcheck",
-        "cmd/entire/cli/agent/opencode/hooks.go",
-        "cmd/entire/cli/integration_test/agent_test.go",
-        "cmd/entire/cli/integration_test/worktree_test.go",
-        "cmd/entire/cli/attach_test.go"
-      ],
-      "prompt": "why is lint failing on the build?"
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 1631,
-      "first_relevant_rank": 5,
-      "mrr": 0.2,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "cc90f6622c5b_r0:q1",
       "run_id": "cc90f6622c5b_r0",
       "task_id": "cc90f6622c5b",
@@ -6190,34 +4935,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "d1d3bff114fe_r0:q1",
-      "run_id": "d1d3bff114fe_r0",
-      "task_id": "d1d3bff114fe",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire/sessions",
-      "tool_input": {
-        "query": "entire/sessions"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/checkpoint/parse_tree.go",
-        "cmd/entire/cli/paths/paths.go",
-        "cmd/entire/cli/checkpoint/committed.go",
-        "cmd/entire/cli/checkpoint/checkpoint.go"
-      ],
-      "prompt": "let's include the agent used in `Entire-Agent:` trailer on commits in `entire/sessions` and add `agent` to the metadata.json"
-    },
-    {
-      "files_returned": 3,
-      "output_chars": 3142,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "d1d3bff114fe_r0:q1",
       "run_id": "d1d3bff114fe_r0",
       "task_id": "d1d3bff114fe",
@@ -6296,33 +5014,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "d7c8f8341919_r0:q1",
-      "run_id": "d7c8f8341919_r0",
-      "task_id": "d7c8f8341919",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "another active session",
-      "tool_input": {
-        "query": "another active session"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/lifecycle.go",
-        "cmd/entire/cli/integration_test/session_conflict_test.go",
-        "cmd/entire/cli/strategy/manual_commit_session.go"
-      ],
-      "prompt": "can you do me a summary for the cases when we show the \"you have another active session\" warning?"
-    },
-    {
-      "files_returned": 0,
-      "output_chars": 17,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "d7c8f8341919_r0:q1",
       "run_id": "d7c8f8341919_r0",
       "task_id": "d7c8f8341919",
@@ -6408,37 +5100,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "e30f791a2d4d_r0:q1",
-      "run_id": "e30f791a2d4d_r0",
-      "task_id": "e30f791a2d4d",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "session ended",
-      "tool_input": {
-        "query": "session ended"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/lifecycle.go",
-        "cmd/entire/cli/session/phase.go",
-        "cmd/entire/cli/session/state.go",
-        "cmd/entire/cli/strategy/session_state.go",
-        "cmd/entire/cli/strategy/session.go",
-        "cmd/entire/cli/strategy/manual_commit_session.go",
-        "cmd/entire/cli/strategy/manual_commit_condensation.go"
-      ],
-      "prompt": "I'd like you to go over the session logic especially the one that figures out if a session has ended and see if we can do improvements there. Basically we need a better / more reliable way a session ended. The main issue here is a user doing splitted commits after the session and the need to keep shadow branches around to continue to be able to do association. Maybe there is a better way"
-    },
-    {
-      "files_returned": 2,
-      "output_chars": 357,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "e30f791a2d4d_r0:q1",
       "run_id": "e30f791a2d4d_r0",
       "task_id": "e30f791a2d4d",
@@ -6526,36 +5188,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "e58e27b1ba0d_r0:q1",
-      "run_id": "e58e27b1ba0d_r0",
-      "task_id": "e58e27b1ba0d",
-      "prompt_category": "implementation",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "writeStandardCheckpointEntries",
-      "tool_input": {
-        "query": "writeStandardCheckpointEntries",
-        "file_type": "go"
-      },
-      "relevant_files": [
-        "CLAUDE.md",
-        "cmd/entire/cli/checkpoint/checkpoint.go",
-        "cmd/entire/cli/checkpoint/committed.go",
-        "cmd/entire/cli/checkpoint/v2_committed.go",
-        "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
-      ],
-      "prompt": "Can you look again, the CLAUDE.md updated and in an checkpoint commit in entire/sessions can now be multiple sessions, can you add support for that?"
-    },
-    {
-      "files_returned": 2,
-      "output_chars": 582,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "e58e27b1ba0d_r0:q1",
       "run_id": "e58e27b1ba0d_r0",
       "task_id": "e58e27b1ba0d",
@@ -6636,33 +5269,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "eb5cdbdef570_r0:q1",
-      "run_id": "eb5cdbdef570_r0",
-      "task_id": "eb5cdbdef570",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "entire explain",
-      "tool_input": {
-        "query": "entire explain"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/explain.go",
-        "cmd/entire/cli/explain_test.go",
-        "cmd/entire/cli/integration_test/explain_test.go"
-      ],
-      "prompt": "what's wrong with `entire explain`?"
-    },
-    {
-      "files_returned": 5,
-      "output_chars": 1407,
-      "first_relevant_rank": 5,
-      "mrr": 0.2,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "eb5cdbdef570_r0:q1",
       "run_id": "eb5cdbdef570_r0",
       "task_id": "eb5cdbdef570",
@@ -6742,34 +5349,7 @@
       "hit_at_1": false,
       "hit_at_3": false,
       "hit_at_5": false,
-      "backend": "pgr_v4",
-      "case_id": "f0c3dbdad0d8_r0:q1",
-      "run_id": "f0c3dbdad0d8_r0",
-      "task_id": "f0c3dbdad0d8",
-      "prompt_category": "code_understanding",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "active session",
-      "tool_input": {
-        "query": "active session",
-        "context_before": 3,
-        "context_after": 3
-      },
-      "relevant_files": [
-        "cmd/entire/cli/agent/claudecode/claude.go",
-        "e2e/agents/claude.go"
-      ],
-      "prompt": "Can you tell me again how the logic works that flags if you have an active session in claude already and blocks the prompt once."
-    },
-    {
-      "files_returned": 10,
-      "output_chars": 1914,
-      "first_relevant_rank": null,
-      "mrr": 0.0,
-      "hit_at_1": false,
-      "hit_at_3": false,
-      "hit_at_5": false,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "f0c3dbdad0d8_r0:q1",
       "run_id": "f0c3dbdad0d8_r0",
       "task_id": "f0c3dbdad0d8",
@@ -6850,34 +5430,7 @@
       "hit_at_1": true,
       "hit_at_3": true,
       "hit_at_5": true,
-      "backend": "pgr_v4",
-      "case_id": "f64fee85be5f_r0:q1",
-      "run_id": "f64fee85be5f_r0",
-      "task_id": "f64fee85be5f",
-      "prompt_category": "repo_task",
-      "repeat": 0,
-      "query_index": 1,
-      "query": "ReadCheckpointMetadata",
-      "tool_input": {
-        "query": "ReadCheckpointMetadata"
-      },
-      "relevant_files": [
-        "cmd/entire/cli/strategy/common.go",
-        "cmd/entire/cli/strategy/common_helpers_test.go",
-        "cmd/entire/cli/checkpoint/checkpoint.go",
-        "cmd/entire/cli/strategy/readcheckpoint_bench_test.go"
-      ],
-      "prompt": "ReadCheckpointMetadata loads into memory a metadata json file and then unmarshal it. It goes on to then do the same for its sessions, which can be many and large files. Overall this approach has a huge impact on memory churn."
-    },
-    {
-      "files_returned": 7,
-      "output_chars": 1843,
-      "first_relevant_rank": 1,
-      "mrr": 1.0,
-      "hit_at_1": true,
-      "hit_at_3": true,
-      "hit_at_5": true,
-      "backend": "rg_ranked",
+      "backend": "pgr",
       "case_id": "f64fee85be5f_r0:q1",
       "run_id": "f64fee85be5f_r0",
       "task_id": "f64fee85be5f",
@@ -6915,20 +5468,12 @@
         "output_chars": 1426.98,
         "files_returned": 5.78
       },
-      "pgr_v4": {
+      "pgr": {
         "mrr": 0.4053333333333333,
         "hit_at_1": 0.34,
         "hit_at_3": 0.42,
         "hit_at_5": 0.52,
         "output_chars": 1587.1,
-        "files_returned": 4.78
-      },
-      "rg_ranked": {
-        "mrr": 0.4053333333333333,
-        "hit_at_1": 0.34,
-        "hit_at_3": 0.42,
-        "hit_at_5": 0.52,
-        "output_chars": 1254.06,
         "files_returned": 4.78
       }
     },
@@ -6950,20 +5495,12 @@
           "output_chars": 1476.88,
           "files_returned": 5.88
         },
-        "pgr_v4": {
+        "pgr": {
           "mrr": 0.326,
           "hit_at_1": 0.24,
           "hit_at_3": 0.36,
           "hit_at_5": 0.48,
           "output_chars": 1704.6,
-          "files_returned": 5.16
-        },
-        "rg_ranked": {
-          "mrr": 0.326,
-          "hit_at_1": 0.24,
-          "hit_at_3": 0.36,
-          "hit_at_5": 0.48,
-          "output_chars": 1304.0,
           "files_returned": 5.16
         }
       },
@@ -6984,20 +5521,12 @@
           "output_chars": 1091.25,
           "files_returned": 5.833333333333333
         },
-        "pgr_v4": {
+        "pgr": {
           "mrr": 0.5208333333333334,
           "hit_at_1": 0.5,
           "hit_at_3": 0.5,
           "hit_at_5": 0.5833333333333334,
           "output_chars": 1413.4166666666667,
-          "files_returned": 4.083333333333333
-        },
-        "rg_ranked": {
-          "mrr": 0.5208333333333334,
-          "hit_at_1": 0.5,
-          "hit_at_3": 0.5,
-          "hit_at_5": 0.5833333333333334,
-          "output_chars": 996.3333333333334,
           "files_returned": 4.083333333333333
         }
       },
@@ -7018,20 +5547,12 @@
           "output_chars": 1680.857142857143,
           "files_returned": 5.714285714285714
         },
-        "pgr_v4": {
+        "pgr": {
           "mrr": 0.5,
           "hit_at_1": 0.42857142857142855,
           "hit_at_3": 0.5714285714285714,
           "hit_at_5": 0.5714285714285714,
           "output_chars": 1437.857142857143,
-          "files_returned": 4.571428571428571
-        },
-        "rg_ranked": {
-          "mrr": 0.5,
-          "hit_at_1": 0.42857142857142855,
-          "hit_at_3": 0.5714285714285714,
-          "hit_at_5": 0.5714285714285714,
-          "output_chars": 1446.5714285714287,
           "files_returned": 4.571428571428571
         }
       },
@@ -7052,20 +5573,12 @@
           "output_chars": 1594.3333333333333,
           "files_returned": 5.333333333333333
         },
-        "pgr_v4": {
+        "pgr": {
           "mrr": 0.39444444444444443,
           "hit_at_1": 0.3333333333333333,
           "hit_at_3": 0.3333333333333333,
           "hit_at_5": 0.5,
           "output_chars": 1619.0,
-          "files_returned": 4.833333333333333
-        },
-        "rg_ranked": {
-          "mrr": 0.39444444444444443,
-          "hit_at_1": 0.3333333333333333,
-          "hit_at_3": 0.3333333333333333,
-          "hit_at_5": 0.5,
-          "output_chars": 1336.8333333333333,
           "files_returned": 4.833333333333333
         }
       }
@@ -7083,18 +5596,7 @@
           "losses": 8,
           "ties": 30
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08761111111111111,
-          "ci95": [
-            -0.006741640732030471,
-            0.1819638629542527
-          ],
-          "wins": 12,
-          "losses": 5,
-          "ties": 33
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08761111111111111,
           "ci95": [
@@ -7118,18 +5620,7 @@
           "losses": 5,
           "ties": 44
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08,
-          "ci95": [
-            -0.04716000000000002,
-            0.20716
-          ],
-          "wins": 7,
-          "losses": 3,
-          "ties": 40
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08,
           "ci95": [
@@ -7153,18 +5644,7 @@
           "losses": 2,
           "ties": 42
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08,
-          "ci95": [
-            -0.017406291377918715,
-            0.17740629137791872
-          ],
-          "wins": 5,
-          "losses": 1,
-          "ties": 44
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08,
           "ci95": [
@@ -7188,18 +5668,7 @@
           "losses": 3,
           "ties": 43
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.12,
-          "ci95": [
-            0.026086116042408278,
-            0.2139138839575917
-          ],
-          "wins": 6,
-          "losses": 0,
-          "ties": 44
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.12,
           "ci95": [
@@ -7223,7 +5692,7 @@
           "losses": 9,
           "ties": 0
         },
-        "pgr_v4_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": -4978.8,
           "ci95": [
@@ -7233,17 +5702,6 @@
           "wins": 33,
           "losses": 17,
           "ties": 0
-        },
-        "rg_ranked_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": -5311.84,
-          "ci95": [
-            -13828.804525713298,
-            3205.1245257132978
-          ],
-          "wins": 38,
-          "losses": 0,
-          "ties": 12
         }
       },
       "files_returned": {
@@ -7258,18 +5716,7 @@
           "losses": 19,
           "ties": 23
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.0,
-          "ci95": [
-            0.0,
-            0.0
-          ],
-          "wins": 0,
-          "losses": 0,
-          "ties": 50
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.0,
           "ci95": [
@@ -7295,18 +5742,7 @@
           "losses": 8,
           "ties": 30
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08761111111111111,
-          "ci95": [
-            -0.006741640732030471,
-            0.1819638629542527
-          ],
-          "wins": 12,
-          "losses": 5,
-          "ties": 33
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08761111111111111,
           "ci95": [
@@ -7330,18 +5766,7 @@
           "losses": 5,
           "ties": 44
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08,
-          "ci95": [
-            -0.04716000000000002,
-            0.20716
-          ],
-          "wins": 7,
-          "losses": 3,
-          "ties": 40
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08,
           "ci95": [
@@ -7365,18 +5790,7 @@
           "losses": 2,
           "ties": 42
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.08,
-          "ci95": [
-            -0.017406291377918715,
-            0.17740629137791872
-          ],
-          "wins": 5,
-          "losses": 1,
-          "ties": 44
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.08,
           "ci95": [
@@ -7400,18 +5814,7 @@
           "losses": 3,
           "ties": 43
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.12,
-          "ci95": [
-            0.026086116042408278,
-            0.2139138839575917
-          ],
-          "wins": 6,
-          "losses": 0,
-          "ties": 44
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.12,
           "ci95": [
@@ -7435,7 +5838,7 @@
           "losses": 9,
           "ties": 0
         },
-        "pgr_v4_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": -4978.8,
           "ci95": [
@@ -7445,17 +5848,6 @@
           "wins": 33,
           "losses": 17,
           "ties": 0
-        },
-        "rg_ranked_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": -5311.84,
-          "ci95": [
-            -13828.804525713298,
-            3205.1245257132978
-          ],
-          "wins": 38,
-          "losses": 0,
-          "ties": 12
         }
       },
       "files_returned": {
@@ -7470,18 +5862,7 @@
           "losses": 19,
           "ties": 23
         },
-        "pgr_v4_vs_baseline": {
-          "n_groups": 50,
-          "mean_diff": 0.0,
-          "ci95": [
-            0.0,
-            0.0
-          ],
-          "wins": 0,
-          "losses": 0,
-          "ties": 50
-        },
-        "rg_ranked_vs_baseline": {
+        "pgr_vs_baseline": {
           "n_groups": 50,
           "mean_diff": 0.0,
           "ci95": [

@@ -43,7 +43,5 @@ This benchmark reruns the "faster search is not the bottleneck" comparison on a 
 
 ## Interpretation
 
-This public rerun uses a larger, trace-derived task set than the earlier 40-task benchmark, but the core pattern is the same: raw search latency is a tiny slice of end-to-end agent time.
-
 - `fff` drove median `search_code` latency from 14.7ms to 1.7ms
 - but end-to-end wall clock moved from 38.57s to 36.99s

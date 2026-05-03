@@ -20,8 +20,6 @@ Everything here is intended to be shareable and inspectable without access to an
 - `benchmarks/entireio_cli_fff_vs_baseline_public60/`
   - speed-oriented benchmark comparing `ripgrep` and `fff`
 - `benchmarks/entireio_cli_ranking_public60/`
-  - broad end-to-end benchmark comparing `baseline`, `fff`, `rg_ranked`, and the current `pgr` output profile
+  - broad end-to-end benchmark comparing `baseline`, `fff`, and `pgr`
 - `benchmarks/entireio_cli_offline_ir_public60/`
   - offline retrieval replay benchmark built from real agent-issued queries
-- `benchmarks/entireio_cli_planner_public40/`
-  - planner-focused benchmark derived from the saved public runs

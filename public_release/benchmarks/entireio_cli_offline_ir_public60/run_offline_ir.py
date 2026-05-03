@@ -139,13 +139,11 @@ def build_backends():
     sys.path.insert(0, str(REPO_ROOT / 'eval/v2'))
     from backends import baseline
     from backends import fff_backend
-    from backends import rg_ranked
-    from backends import pgr_v3_backend
+    from backends import pgr_backend
     return {
         'baseline': baseline,
         'fff': fff_backend,
-        'rg_ranked': rg_ranked,
-        'pgr_v4': pgr_v3_backend,
+        'pgr': pgr_backend,
     }
 
 
@@ -235,7 +233,7 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
 def write_summary_md(out_dir: Path, subset: str, payload: dict[str, Any]) -> None:
     s = payload['summary']['overall']
     e = payload['experiment']
-    backends = [name for name in ['baseline', 'fff', 'rg_ranked', 'pgr_v4'] if name in s]
+    backends = [name for name in ['baseline', 'fff', 'pgr'] if name in s]
     lines = [
         f"# entireio_cli_offline_ir_public60_{subset}",
         '',
@@ -329,7 +327,7 @@ def main():
     }
     (args.out_dir / 'results.json').write_text(json.dumps(payload, indent=2))
     write_summary_md(args.out_dir, args.subset, payload)
-    for backend_name in ('pgr_v4', 'fff'):
+    for backend_name in ('pgr', 'fff'):
         backend = backends.get(backend_name)
         if backend and hasattr(backend, 'cleanup'):
             backend.cleanup()

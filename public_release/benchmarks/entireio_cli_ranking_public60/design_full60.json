@@ -916,8 +916,7 @@
   "conditions": [
     "baseline",
     "fff",
-    "rg_ranked",
-    "pgr_v4"
+    "pgr"
   ],
   "repeats": 1,
   "model": "claude-sonnet-4-6",

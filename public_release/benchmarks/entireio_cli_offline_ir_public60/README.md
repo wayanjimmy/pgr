@@ -10,8 +10,7 @@ against three backends:
 
 - `baseline`
 - `fff`
-- `rg_ranked`
-- `pgr_v4`
+- `pgr`
 
 ## Label source
 
@@ -44,7 +43,5 @@ This means the benchmark answers a slightly different question:
 Example:
 
 ```bash
-python3 public_release/benchmarks/entireio_cli_offline_ir_public60/run_offline_ir.py \
-  --subset first_search \
-  --out-dir /tmp/entireio_cli_offline_ir_first_search
+python3 public_release/benchmarks/entireio_cli_offline_ir_public60/run_offline_ir.py   --subset first_search   --out-dir /tmp/entireio_cli_offline_ir_first_search
 ```

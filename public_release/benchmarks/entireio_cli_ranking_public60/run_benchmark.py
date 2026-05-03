@@ -219,8 +219,8 @@ def main() -> None:
     parser.add_argument(
         "--conditions",
         nargs="+",
-        default=["baseline", "fff", "rg_ranked", "pgr_v4"],
-        choices=["baseline", "fff", "rg_ranked", "pgr_v4"],
+        default=["baseline", "fff", "pgr"],
+        choices=["baseline", "fff", "pgr"],
     )
     parser.add_argument("--reuse-existing", action="store_true")
     parser.add_argument("--dry-run", action="store_true")

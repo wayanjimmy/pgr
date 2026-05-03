@@ -1,29 +1,106 @@
-"""pgr backend: uses pgr binary with --json for structured data.
+"""pgr backend: uses the pgr MCP binary for all tools.
 
-Implements the 4 tools using pgr's indexed search.
-All calls use subprocess with programmatic arg lists — no shell construction.
-Output is normalized to the same format as the baseline backend.
+`pgr` is stateless: no local index and no daemon. Each tool call goes through
+one long-lived MCP stdio process per repo root, which matches the public
+benchmark setup.
 """
 
 import json
 import os
 import subprocess
+import threading
 from pathlib import Path
 
 DEFAULT_PGR_BIN = Path(__file__).resolve().parents[3] / "target" / "release" / "pgr"
 PGR_BIN = os.environ.get("PGR_BIN", str(DEFAULT_PGR_BIN))
 
+_processes: dict[str, tuple[subprocess.Popen, threading.Lock, list[int]]] = {}
+_pool_lock = threading.Lock()
 
-def _run_pgr(args: list[str], cwd: str, timeout: int = 10) -> str:
-    """Run pgr with programmatic args. No shell."""
-    cmd = [PGR_BIN] + args
+
+def _send_raw(proc, msg: str):
+    proc.stdin.write(msg + "\n")
+    proc.stdin.flush()
+
+
+def _read_line(proc) -> str:
+    line = proc.stdout.readline()
+    return line.strip() if line else ""
+
+
+def _get_process(repo_root: str):
+    with _pool_lock:
+        if repo_root in _processes:
+            proc, lock, counter = _processes[repo_root]
+            if proc.poll() is None:
+                return proc, lock, counter
+
+        bin_path = os.path.abspath(PGR_BIN)
+        if not os.path.isfile(bin_path):
+            raise FileNotFoundError(f"pgr binary not found at {bin_path}. Run: cargo build --release")
+
+        proc = subprocess.Popen(
+            [bin_path],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            cwd=repo_root,
+        )
+        lock = threading.Lock()
+        counter = [10]
+
+        _send_raw(proc, json.dumps({
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+                "protocolVersion": "2024-11-05",
+                "capabilities": {},
+                "clientInfo": {"name": "pgr-eval", "version": "0.1"},
+            },
+        }))
+        _read_line(proc)
+        _send_raw(proc, json.dumps({
+            "jsonrpc": "2.0",
+            "method": "notifications/initialized",
+            "params": {},
+        }))
+
+        _processes[repo_root] = (proc, lock, counter)
+        return proc, lock, counter
+
+
+def _call_tool(repo_root: str, tool_name: str, arguments: dict) -> str:
+    proc, lock, counter = _get_process(repo_root)
+
+    with lock:
+        req_id = counter[0]
+        counter[0] += 1
+        request = json.dumps({
+            "jsonrpc": "2.0",
+            "id": req_id,
+            "method": "tools/call",
+            "params": {
+                "name": tool_name,
+                "arguments": arguments,
+            },
+        })
+        _send_raw(proc, request)
+        raw = _read_line(proc)
+
+    if not raw:
+        return "pgr: no response"
+
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, cwd=cwd)
-        return r.stdout
-    except subprocess.TimeoutExpired:
-        return ""
-    except Exception:
-        return ""
+        resp = json.loads(raw)
+    except json.JSONDecodeError:
+        return f"pgr: invalid JSON: {raw[:200]}"
+
+    result = resp.get("result", {})
+    content = result.get("content", [])
+    texts = [block["text"] for block in content if block.get("type") == "text"]
+    return "\n".join(texts) if texts else "No results."
 
 
 def search_code(
@@ -36,75 +113,16 @@ def search_code(
     context_before: int = 2,
     context_after: int = 2,
 ) -> str:
-    """Search using pgr's indexed search, flat JSON grouped in Python.
-
-    NOTE: pgr --group-by-file has a ranking bug that drops results.
-    We use flat --json output and group by file ourselves.
-    """
-    args = [query, "--json"]
-
-    # NOTE: pgr -C (context lines) has a bug that drops results.
-    # Skip context — the agent can use read_code for surrounding lines.
+    args = {"query": query}
     if path_glob:
-        args.extend(["-g", path_glob])
+        args["path_glob"] = path_glob
     if file_type:
-        args.extend(["-t", file_type])
-    args.extend(["--max-results", str(max_files * max_matches_per_file * 10)])
-
-    raw = _run_pgr(args, cwd=repo_root)
-    if not raw.strip():
-        return "No matches found."
-
-    try:
-        data = json.loads(raw)
-    except json.JSONDecodeError:
-        return raw.strip() if raw.strip() else "No matches found."
-
-    if not data:
-        return "No matches found."
-
-    # Flat JSON: list of {path, line, col, content, score, kind}
-    # Group by file, preserving score-based order
-    from collections import OrderedDict
-    file_matches = OrderedDict()
-    for match in data:
-        path = match.get("path", "")
-        if path not in file_matches:
-            file_matches[path] = []
-        file_matches[path].append(match)
-
-    output_lines = []
-    files_shown = 0
-
-    for filepath, matches in file_matches.items():
-        if files_shown >= max_files:
-            output_lines.append(f"\n(truncated to top {max_files} files)")
-            break
-
-        output_lines.append(f"\n{filepath}")
-
-        snippets_shown = 0
-        for match in matches:
-            if snippets_shown >= max_matches_per_file:
-                break
-
-            line_num = match.get("line", 0)
-            content = match.get("content", "")
-
-            # With context, content may span multiple lines
-            content_lines = content.splitlines()
-            start_line = max(1, line_num - context_before)
-            end_line = start_line + len(content_lines) - 1
-
-            output_lines.append(f"  {start_line}-{end_line}:")
-            for i, line in enumerate(content_lines):
-                output_lines.append(f"    {start_line + i}| {line}")
-            snippets_shown += 1
-
-        files_shown += 1
-
-    result = "\n".join(output_lines).strip()
-    return result if result else "No matches found."
+        args["file_type"] = file_type
+    if max_files != 10:
+        args["max_files"] = max_files
+    if max_matches_per_file != 3:
+        args["max_matches_per_file"] = max_matches_per_file
+    return _call_tool(repo_root, "search_code", args)
 
 
 def read_code(
@@ -114,47 +132,14 @@ def read_code(
     end_line: int = 0,
     max_lines: int = 80,
 ) -> str:
-    """Read file using pgr --cat (suffix match + index lookup)."""
-    args = ["--cat", path]
-
-    start = max(1, start_line)
-    args.extend(["--offset", str(start)])
-
-    if end_line > 0:
-        limit = end_line - start + 1
-    else:
-        limit = max_lines
-    args.extend(["--limit", str(limit)])
-
-    raw = _run_pgr(args, cwd=repo_root)
-    if not raw.strip():
-        # Try filesystem fallback
-        return _read_filesystem(repo_root, path, start, end_line, max_lines)
-
-    # Normalize output: pgr --cat outputs "  N\tcontent" lines
-    lines = raw.splitlines()
-    if not lines:
-        return f"File not found: {path}"
-
-    # Re-format to standard "  N| content"
-    content_lines = []
-    for line in lines:
-        stripped = line.strip()
-        if not stripped:
-            content_lines.append("")
-            continue
-        # pgr format: "  123\tcontent" — split on first tab
-        parts = stripped.split("\t", 1)
-        if len(parts) == 2 and parts[0].strip().isdigit():
-            lineno = parts[0].strip()
-            content = parts[1]
-            content_lines.append(f"  {lineno}| {content}")
-        else:
-            content_lines.append(f"  {stripped}")
-
-    actual_end = start + len(content_lines) - 1
-    header = f"{path}:{start}-{actual_end}"
-    return header + "\n" + "\n".join(content_lines)
+    args = {"path": path}
+    if start_line != 1:
+        args["start_line"] = start_line
+    if end_line != 0:
+        args["end_line"] = end_line
+    if max_lines != 80:
+        args["max_lines"] = max_lines
+    return _call_tool(repo_root, "read_code", args)
 
 
 def find_files(
@@ -164,37 +149,16 @@ def find_files(
     file_type: str = "",
     max_results: int = 50,
 ) -> str:
-    """Find files using pgr's path index."""
+    args = {}
     if pattern:
-        # Use pgr -f for file search
-        args = ["-f", pattern]
-        if file_type:
-            args.extend(["-t", file_type])
-        if glob:
-            args.extend(["-g", glob])
-        args.extend(["--max-results", str(max_results)])
-    elif glob or file_type:
-        # Use pgr --files with filters
-        args = ["--files"]
-        if file_type:
-            args.extend(["-t", file_type])
-        if glob:
-            args.extend(["-g", glob])
-    else:
-        args = ["--files"]
-
-    raw = _run_pgr(args, cwd=repo_root)
-    if not raw.strip():
-        return "No files found."
-
-    paths = [p.strip() for p in raw.strip().splitlines() if p.strip()]
-    paths.sort()
-
-    if len(paths) > max_results:
-        paths = paths[:max_results]
-        paths.append(f"(truncated to {max_results} results)")
-
-    return "\n".join(paths) if paths else "No files found."
+        args["pattern"] = pattern
+    if glob:
+        args["glob"] = glob
+    if file_type:
+        args["file_type"] = file_type
+    if max_results != 50:
+        args["max_results"] = max_results
+    return _call_tool(repo_root, "find_files", args)
 
 
 def list_dir(
@@ -203,95 +167,23 @@ def list_dir(
     recursive: bool = False,
     max_results: int = 100,
 ) -> str:
-    """List directory using pgr's file index filtered by prefix."""
-    if path == ".":
-        prefix = None
-    else:
-        prefix = path.rstrip("/") + "/"
-
-    args = ["--files"]
-    if prefix:
-        args.extend(["--prefix", prefix])
-
-    raw = _run_pgr(args, cwd=repo_root)
-    if not raw.strip():
-        # Fallback to filesystem
-        return _list_dir_fs(repo_root, path, recursive, max_results)
-
-    all_paths = [p.strip() for p in raw.strip().splitlines() if p.strip()]
-
-    if not recursive and prefix:
-        # Filter to immediate children only
-        entries = set()
-        for p in all_paths:
-            # Remove prefix to get relative path
-            rel = p[len(prefix):] if p.startswith(prefix) else p
-            # Take only the first component
-            parts = rel.split("/", 1)
-            if len(parts) == 1:
-                entries.add(parts[0])
-            else:
-                entries.add(parts[0] + "/")
-    elif not recursive:
-        entries = set()
-        for p in all_paths:
-            parts = p.split("/", 1)
-            if len(parts) == 1:
-                entries.add(parts[0])
-            else:
-                entries.add(parts[0] + "/")
-    else:
-        entries = set(all_paths)
-
-    sorted_entries = sorted(entries)
-    if len(sorted_entries) > max_results:
-        sorted_entries = sorted_entries[:max_results]
-        sorted_entries.append(f"(truncated to {max_results} entries)")
-
-    return "\n".join(sorted_entries) if sorted_entries else "(empty directory)"
+    args = {"path": path}
+    if recursive:
+        args["recursive"] = True
+    if max_results != 100:
+        args["max_results"] = max_results
+    return _call_tool(repo_root, "list_dir", args)
 
 
-def _read_filesystem(repo_root: str, path: str, start: int, end_line: int, max_lines: int) -> str:
-    """Fallback file read from filesystem."""
-    full_path = os.path.join(repo_root, path)
-    if not os.path.isfile(full_path):
-        return f"File not found: {path}"
-    try:
-        with open(full_path, "r", errors="replace") as f:
-            lines = f.readlines()
-    except Exception as e:
-        return f"Error reading file: {e}"
-
-    total = len(lines)
-    s = max(1, start) - 1
-    if end_line > 0:
-        e = min(end_line, total)
-    else:
-        e = min(s + max_lines, total)
-
-    output = [f"{path}:{s+1}-{e}"]
-    for i, line in enumerate(lines[s:e]):
-        output.append(f"  {s+1+i}| {line.rstrip()}")
-    return "\n".join(output)
-
-
-def _list_dir_fs(repo_root: str, path: str, recursive: bool, max_results: int) -> str:
-    """Fallback directory listing from filesystem."""
-    target = os.path.join(repo_root, path)
-    if not os.path.isdir(target):
-        return f"Not a directory: {path}"
-    try:
-        raw = sorted(os.listdir(target))
-        entries = []
-        for e in raw:
-            full = os.path.join(target, e)
-            if os.path.isdir(full):
-                entries.append(e + "/")
-            else:
-                entries.append(e)
-        if len(entries) > max_results:
-            entries = entries[:max_results]
-            entries.append(f"(truncated to {max_results} entries)")
-        return "\n".join(entries) if entries else "(empty directory)"
-    except Exception as e:
-        return f"Error: {e}"
+def cleanup():
+    with _pool_lock:
+        for proc, _, _ in _processes.values():
+            try:
+                proc.terminate()
+                proc.wait(timeout=5)
+            except Exception:
+                try:
+                    proc.kill()
+                except Exception:
+                    pass
+        _processes.clear()

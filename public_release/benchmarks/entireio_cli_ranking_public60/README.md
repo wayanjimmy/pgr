@@ -1,14 +1,12 @@
 # Ranking Benchmark on Public `entireio/cli`
 
-This package reruns the ranked-search story on a public, trace-derived task suite
-from `entireio/cli`.
+This package reruns the ranked-search story on a public, trace-derived task suite from `entireio/cli`.
 
 It compares:
 
 - `baseline`: raw `ripgrep`
 - `fff`: stateful indexed MCP search
-- `rg_ranked`: Python ranking heuristics on top of `ripgrep`
-- `pgr_v4`: the current Rust MCP implementation and output profile used in the public runs
+- `pgr`: the Rust MCP implementation used in the public runs
 
 Artifacts:
 

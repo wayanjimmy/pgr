@@ -1,7 +1,7 @@
 """Custom agent runtime for the v2 eval.
 
 Uses the Anthropic API directly with native structured tools.
-Both conditions use identical tool schemas — only the backend differs.
+All public conditions use identical tool schemas; only the backend differs.
 """
 
 import json
@@ -15,10 +15,7 @@ import anthropic
 from tools import TOOL_DEFINITIONS, SYSTEM_PROMPT
 from backends import baseline as baseline_backend
 from backends import pgr_backend
-from backends import rg_ranked as rg_ranked_backend
 from backends import fff_backend
-from backends import rg_expanded
-from backends import pgr_v3_backend
 
 
 @dataclass
@@ -27,7 +24,7 @@ class ToolCall:
     tool_name: str
     tool_input: dict
     output: str
-    output_tokens: int  # approximate: len(output)
+    output_tokens: int
     duration_ms: float
     turn_number: int
 
@@ -38,7 +35,7 @@ class TaskResult:
     task_id: str
     repo: str
     task_type: str
-    condition: str  # "baseline" or "pgr"
+    condition: str
     prompt: str
     answer: str = ""
     tool_calls: list[ToolCall] = field(default_factory=list)
@@ -60,23 +57,12 @@ class TaskResult:
         return d
 
 
-def dispatch_tool(
-    tool_name: str,
-    tool_input: dict,
-    repo_root: str,
-    condition: str,
-) -> str:
+def dispatch_tool(tool_name: str, tool_input: dict, repo_root: str, condition: str) -> str:
     """Dispatch a tool call to the appropriate backend."""
     if condition == "pgr":
         backend = pgr_backend
-    elif condition == "rg_ranked":
-        backend = rg_ranked_backend
     elif condition == "fff":
         backend = fff_backend
-    elif condition == "rg_expanded":
-        backend = rg_expanded
-    elif condition in ("pgr_v3", "pgr_v4"):
-        backend = pgr_v3_backend
     else:
         backend = baseline_backend
 
@@ -91,7 +77,7 @@ def dispatch_tool(
             context_before=tool_input.get("context_before", 2),
             context_after=tool_input.get("context_after", 2),
         )
-    elif tool_name == "read_code":
+    if tool_name == "read_code":
         return backend.read_code(
             repo_root=repo_root,
             path=tool_input["path"],
@@ -99,7 +85,7 @@ def dispatch_tool(
             end_line=tool_input.get("end_line", 0),
             max_lines=tool_input.get("max_lines", 80),
         )
-    elif tool_name == "find_files":
+    if tool_name == "find_files":
         return backend.find_files(
             repo_root=repo_root,
             pattern=tool_input.get("pattern", ""),
@@ -107,15 +93,14 @@ def dispatch_tool(
             file_type=tool_input.get("file_type", ""),
             max_results=tool_input.get("max_results", 50),
         )
-    elif tool_name == "list_dir":
+    if tool_name == "list_dir":
         return backend.list_dir(
             repo_root=repo_root,
             path=tool_input.get("path", "."),
             recursive=tool_input.get("recursive", False),
             max_results=tool_input.get("max_results", 100),
         )
-    else:
-        return f"Unknown tool: {tool_name}"
+    return f"Unknown tool: {tool_name}"
 
 
 def run_task(
@@ -141,15 +126,11 @@ def run_task(
     messages = [{"role": "user", "content": prompt}]
     turn = 0
     start_time = time.time()
-
-    # Track retries: same tool called with similar args
-    last_tool_calls = {}  # tool_name -> last input
+    last_tool_calls = {}
 
     try:
         while turn < max_turns:
             turn += 1
-
-            # Retry on transient errors (529 overload, 500, etc.)
             response = None
             for attempt in range(5):
                 try:
@@ -165,9 +146,9 @@ def run_task(
                     result.error = f"Auth error: set ANTHROPIC_API_KEY env var. {e}"
                     break
                 except (anthropic.APIStatusError, anthropic.APIConnectionError) as e:
-                    status = getattr(e, 'status_code', 0)
+                    status = getattr(e, "status_code", 0)
                     if status in (429, 529, 500, 502, 503) and attempt < 4:
-                        wait = (2 ** attempt) * 2  # 2, 4, 8, 16s
+                        wait = (2 ** attempt) * 2
                         print(f"    [{task_id}] API {status}, retrying in {wait}s (attempt {attempt+1}/5)", flush=True)
                         time.sleep(wait)
                         continue
@@ -179,84 +160,66 @@ def run_task(
                     result.error = "No response after retries"
                 break
 
-            # Track token usage
             result.input_tokens += response.usage.input_tokens
             result.output_tokens += response.usage.output_tokens
 
-            # Process response content
             assistant_content = response.content
             tool_use_blocks = [b for b in assistant_content if b.type == "tool_use"]
             text_blocks = [b for b in assistant_content if b.type == "text"]
 
-            # If no tool use, we're done
             if not tool_use_blocks:
                 result.answer = "\n".join(b.text for b in text_blocks)
                 break
 
-            # Add assistant message to conversation
             messages.append({"role": "assistant", "content": assistant_content})
-
-            # Process each tool call
             tool_results = []
             for tool_block in tool_use_blocks:
                 tool_name = tool_block.name
                 tool_input = tool_block.input
 
-                # Track retries
                 input_key = json.dumps(tool_input, sort_keys=True)
                 if tool_name in last_tool_calls and last_tool_calls[tool_name] == input_key:
                     result.retry_count += 1
                 last_tool_calls[tool_name] = input_key
 
-                # Execute tool
                 tool_start = time.time()
                 output = dispatch_tool(tool_name, tool_input, repo_root, condition)
                 tool_duration = (time.time() - tool_start) * 1000
 
-                # Record tool call
                 tc = ToolCall(
                     tool_name=tool_name,
                     tool_input=tool_input,
-                    output=output[:500],  # truncate for logging
-                    output_tokens=len(output),  # approximate
+                    output=output[:500],
+                    output_tokens=len(output),
                     duration_ms=tool_duration,
                     turn_number=turn,
                 )
                 result.tool_calls.append(tc)
+                result.total_tool_calls += 1
                 result.tool_output_tokens += len(output)
 
-                # Track first call
-                if result.total_tool_calls == 0:
+                if not result.first_call_tool:
                     result.first_call_tool = tool_name
-                    # Check if first call produced a file path
-                    result.first_call_produced_file = (
-                        "/" in output or ".go" in output or ".py" in output or
-                        ".js" in output or ".ts" in output or ".h" in output or
-                        ".cc" in output or ".rs" in output
-                    )
+                    if tool_name in ("search_code", "find_files") and any(
+                        ext in output for ext in [".go", ".py", ".ts", ".js", ".rs", ".java"]
+                    ):
+                        result.first_call_produced_file = True
 
-                result.total_tool_calls += 1
-
-                tool_results.append({
-                    "type": "tool_result",
-                    "tool_use_id": tool_block.id,
-                    "content": output,
-                })
+                tool_results.append(
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": tool_block.id,
+                        "content": output,
+                    }
+                )
 
             messages.append({"role": "user", "content": tool_results})
 
-            # Check stop reason
-            if response.stop_reason == "end_turn":
-                result.answer = "\n".join(b.text for b in text_blocks)
-                break
-
         result.total_turns = turn
         result.wall_clock_ms = (time.time() - start_time) * 1000
-
-        # Estimate cost (sonnet pricing: $3/MTok in, $15/MTok out)
         result.total_cost_usd = (
-            result.input_tokens * 3 / 1_000_000 +
-            result.output_tokens * 15 / 1_000_000
+            result.input_tokens * 3.0 / 1_000_000
+            + result.output_tokens * 15.0 / 1_000_000
         )
 
     except Exception as e:
@@ -266,18 +229,33 @@ def run_task(
     return result
 
 
-if __name__ == "__main__":
-    # Quick test
+def main():
+    if len(sys.argv) != 6:
+        print("Usage: python agent.py TASK_ID REPO TASK_TYPE PROMPT_FILE CONDITION")
+        sys.exit(1)
+
+    task_id = sys.argv[1]
+    repo = sys.argv[2]
+    task_type = sys.argv[3]
+    prompt_file = sys.argv[4]
+    condition = sys.argv[5]
+
+    with open(prompt_file) as f:
+        payload = json.load(f)
+
     result = run_task(
-        task_id="test-1",
-        repo="chi",
-        task_type="find_symbol",
-        prompt="Where is the NewRouter function defined and what does it do?",
-        repo_root="/tmp/pgr-eval/repos/chi",
-        condition="baseline",
+        task_id=task_id,
+        repo=repo,
+        task_type=task_type,
+        prompt=payload["prompt"],
+        repo_root=payload["repo_root"],
+        condition=condition,
+        model=payload.get("model", "claude-sonnet-4-6"),
+        max_turns=payload.get("max_turns", 20),
     )
-    print(f"Turns: {result.total_turns}")
-    print(f"Tool calls: {result.total_tool_calls}")
-    print(f"Wall clock: {result.wall_clock_ms:.0f}ms")
-    print(f"Tool calls: {[(tc.tool_name, tc.tool_input) for tc in result.tool_calls]}")
-    print(f"Answer: {result.answer[:200]}")
+
+    print(json.dumps(result.to_dict()))
+
+
+if __name__ == "__main__":
+    main()

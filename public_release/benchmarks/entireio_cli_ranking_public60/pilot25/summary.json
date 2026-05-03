@@ -24,19 +24,7 @@
       "avg_search_code_duration_ms": 11.598736253532616,
       "median_search_code_duration_ms": 1.394186019897461
     },
-    "rg_ranked": {
-      "wall_clock_ms": 36149.46786880493,
-      "total_tool_calls": 20.24,
-      "total_cost_usd": 0.48903156,
-      "tool_output_tokens": 66370.68,
-      "total_tool_duration_ms": 164.3464469909668,
-      "tool_execution_share": 0.004537918345822688,
-      "search_call_count": 6.92,
-      "read_call_count": 10.04,
-      "avg_search_code_duration_ms": 18.344980628790292,
-      "median_search_code_duration_ms": 15.872955322265625
-    },
-    "pgr_v4": {
+    "pgr": {
       "wall_clock_ms": 36884.51996803284,
       "total_tool_calls": 20.92,
       "total_cost_usd": 0.48236688,
@@ -75,19 +63,7 @@
         "avg_search_code_duration_ms": 17.80546591633604,
         "median_search_code_duration_ms": 0.9526332219441732
       },
-      "rg_ranked": {
-        "wall_clock_ms": 34853.246545791626,
-        "total_tool_calls": 19.733333333333334,
-        "total_cost_usd": 0.388665,
-        "tool_output_tokens": 61045.13333333333,
-        "total_tool_duration_ms": 178.53344281514487,
-        "tool_execution_share": 0.005002845745856708,
-        "search_call_count": 7.466666666666667,
-        "read_call_count": 8.466666666666667,
-        "avg_search_code_duration_ms": 16.83721301902054,
-        "median_search_code_duration_ms": 14.513492584228516
-      },
-      "pgr_v4": {
+      "pgr": {
         "wall_clock_ms": 34929.384072621666,
         "total_tool_calls": 19.0,
         "total_cost_usd": 0.312281,
@@ -125,19 +101,7 @@
         "avg_search_code_duration_ms": 1.588163205555507,
         "median_search_code_duration_ms": 1.4535699571881975
       },
-      "rg_ranked": {
-        "wall_clock_ms": 38387.175185339795,
-        "total_tool_calls": 19.857142857142858,
-        "total_cost_usd": 0.7196288571428572,
-        "tool_output_tokens": 82089.71428571429,
-        "total_tool_duration_ms": 130.44108663286482,
-        "tool_execution_share": 0.003555072604412948,
-        "search_call_count": 5.714285714285714,
-        "read_call_count": 12.142857142857142,
-        "avg_search_code_duration_ms": 20.778402476624297,
-        "median_search_code_duration_ms": 18.802200044904435
-      },
-      "pgr_v4": {
+      "pgr": {
         "wall_clock_ms": 39657.769203186035,
         "total_tool_calls": 22.142857142857142,
         "total_cost_usd": 0.8215902857142857,
@@ -175,19 +139,7 @@
         "avg_search_code_duration_ms": 3.9230917181287492,
         "median_search_code_duration_ms": 3.4633874893188477
       },
-      "rg_ranked": {
-        "wall_clock_ms": 37409.25741195679,
-        "total_tool_calls": 23.666666666666668,
-        "total_cost_usd": 0.452804,
-        "tool_output_tokens": 56320.666666666664,
-        "total_tool_duration_ms": 172.52397537231445,
-        "tool_execution_share": 0.004506588075608648,
-        "search_call_count": 7.0,
-        "read_call_count": 13.0,
-        "avg_search_code_duration_ms": 20.20583436602638,
-        "median_search_code_duration_ms": 15.83536465962728
-      },
-      "pgr_v4": {
+      "pgr": {
         "wall_clock_ms": 40189.284563064575,
         "total_tool_calls": 27.666666666666668,
         "total_cost_usd": 0.541275,
@@ -254,59 +206,7 @@
         "median_diff": -15.521407127380371
       }
     },
-    "rg_ranked": {
-      "wall_clock_ms": {
-        "n_tasks": 25,
-        "mean_diff": -2056.682710647583,
-        "median_diff": -1209.5370292663574
-      },
-      "total_tool_calls": {
-        "n_tasks": 25,
-        "mean_diff": 0.04,
-        "median_diff": 1.0
-      },
-      "total_cost_usd": {
-        "n_tasks": 25,
-        "mean_diff": -0.06902280000000001,
-        "median_diff": -0.00816900000000001
-      },
-      "tool_output_tokens": {
-        "n_tasks": 25,
-        "mean_diff": 4535.08,
-        "median_diff": -162.0
-      },
-      "total_tool_duration_ms": {
-        "n_tasks": 25,
-        "mean_diff": -1.132354736328125,
-        "median_diff": 22.10688591003418
-      },
-      "tool_execution_share": {
-        "n_tasks": 25,
-        "mean_diff": -7.271720362416975e-05,
-        "median_diff": 0.00016170863306852554
-      },
-      "search_call_count": {
-        "n_tasks": 25,
-        "mean_diff": -1.12,
-        "median_diff": -1.0
-      },
-      "read_call_count": {
-        "n_tasks": 25,
-        "mean_diff": 1.6,
-        "median_diff": 2.0
-      },
-      "avg_search_code_duration_ms": {
-        "n_tasks": 25,
-        "mean_diff": 1.4076729727404524,
-        "median_diff": 2.1035075187683105
-      },
-      "median_search_code_duration_ms": {
-        "n_tasks": 25,
-        "mean_diff": -0.3314208984375,
-        "median_diff": 0.010371208190917969
-      }
-    },
-    "pgr_v4": {
+    "pgr": {
       "wall_clock_ms": {
         "n_tasks": 25,
         "mean_diff": -1321.6306114196777,
