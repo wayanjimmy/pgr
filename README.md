@@ -52,6 +52,8 @@ If you want the binary on your `PATH`, you can also install it locally with:
 cargo install --path .
 ```
 
+For most first-time users, this is the easiest way to try `pgr`.
+
 ## Running `pgr`
 
 `pgr` is designed to run as an MCP server over stdio.
@@ -82,6 +84,24 @@ That means:
 - configure your MCP client to launch `pgr` with that repository as its working directory
 
 There is no index to build, no background daemon, and no separate storage layer. `pgr` just starts, answers MCP tool calls over stdio, and exits when the client stops it.
+
+## Fastest first run
+
+If you are coming to the repo for the first time, the simplest path is:
+
+```bash
+git clone https://github.com/entireio/pgr.git
+cd pgr
+cargo install --path .
+```
+
+Then move into the repository you want to search and point your MCP client at `pgr`, or smoke-test it directly over stdio.
+
+If `pgr` is not yet on your shell `PATH` after install, use the binary directly at:
+
+```bash
+~/.cargo/bin/pgr
+```
 
 ## MCP client setup
 
@@ -130,7 +150,7 @@ printf '%s\n' \
   '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' \
   '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' \
   '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"search_code","arguments":{"query":"fn main","max_files":3}}}' \
-  | /absolute/path/to/pgr
+  | ~/.cargo/bin/pgr
 ```
 
 That will:
@@ -138,6 +158,12 @@ That will:
 - initialize the server
 - list the exposed MCP tools
 - run a `search_code` call against the current repository
+
+If `pgr` is already on your `PATH`, you can replace `~/.cargo/bin/pgr` with just:
+
+```bash
+pgr
+```
 
 ## Tool reference
 
