@@ -1,54 +1,58 @@
 # Contributing to pgr
 
-Thank you for your interest in contributing to `pgr`.
+Thanks for helping improve `pgr`.
 
-This repository is intentionally small and public-facing. It contains the Rust MCP server, a minimal evaluation harness, and the benchmark and data artifacts referenced in the writeup. Contributions are welcome, and the fastest way to get something merged is to align with maintainers before writing code.
+This repository is intentionally small and public-facing. It contains the Rust
+MCP server, a minimal evaluation harness, and the benchmark and data artifacts
+referenced in the writeup.
 
-> New to the project? See the [README](README.md) for setup and usage documentation.
+New to the project? Start with the [README](README.md). For MCP setup, direct
+stdio smoke testing, tool arguments, and output profiles, see
+[docs/usage.md](docs/usage.md).
 
----
+## Before you start
 
-## Before You Code: Discuss First
+Fork the repo:
 
-Please open an issue before starting significant implementation work.
+1. Click [**Fork**](https://github.com/entireio/pgr/fork).
+2. Clone your fork:
 
-That is especially helpful for:
+```bash
+git clone https://github.com/YOUR-USERNAME/pgr.git
+cd pgr
+```
 
-- new features
-- changes to MCP tool behavior or output format
-- benchmark methodology changes
-- additions or removals under `public_release/`
+Create a descriptive branch from `main`:
 
-Small documentation fixes, typo corrections, and narrowly scoped bug fixes can usually go straight to a pull request.
+```bash
+git checkout main
+git pull origin main
+git checkout -b improve-search-ranking
+```
 
-### Contribution Workflow
+Please open an issue before starting changes that affect public behavior or
+public research artifacts.
 
-1. Open an issue describing the problem or proposal.
-2. Wait for maintainer feedback if the change is substantial.
-3. Get alignment before starting implementation.
-4. Submit a PR that references the issue.
-5. Address review feedback before merge.
+That includes:
 
----
+- adding a new MCP tool
+- changing an existing tool's arguments, behavior, or output format
+- changing how benchmarks are run or measured
+- adding, removing, or regenerating files under `public_release/`
 
-## Good First Contributions
+Small documentation fixes, typo corrections, and narrowly scoped bug fixes can
+usually go straight to a pull request.
+
+## Good first contributions
 
 Good places to start:
 
 - documentation improvements
+- README examples and MCP setup clarifications
 - test additions or coverage improvements
 - small bug fixes
-- README examples and MCP setup clarifications
 
----
-
-## Security
-
-If you discover a security issue, do not open a public GitHub issue. Please follow the instructions in [SECURITY.md](SECURITY.md).
-
----
-
-## Local Setup
+## Local setup
 
 ### Prerequisites
 
@@ -73,9 +77,7 @@ If you are changing formatting-sensitive Rust code, please also run:
 cargo fmt
 ```
 
----
-
-## Repository Structure
+## Repository structure
 
 - `src/`
   - Rust MCP server implementation
@@ -85,10 +87,59 @@ cargo fmt
   - minimal harness and backend adapters used by the public benchmark runners
 - `public_release/`
   - public datasets, benchmark definitions, summaries, and saved results
+- `docs/`
+  - usage documentation for MCP setup, smoke tests, tools, and output profiles
 
----
+## Changing MCP behavior
 
-## Code Style
+If you change an MCP tool, keep the PR focused and explain the behavior change
+clearly.
+
+In the PR description, mention:
+
+- which tool changed
+- whether parameters changed
+- whether output format changed
+- whether existing clients need to update anything
+
+When practical, add or update tests for behavior changes in `src/` and
+`tests/`.
+
+At minimum, verify that the MCP surface still initializes and lists tools. The
+direct stdio smoke test in [docs/usage.md](docs/usage.md#try-it-directly) is a
+good starting point.
+
+## Changing docs only
+
+For Markdown-only changes, read the rendered Markdown or preview it in GitHub
+before submitting.
+
+Also check for whitespace issues:
+
+```bash
+git diff --check README.md CONTRIBUTING.md docs/usage.md
+```
+
+If you add more docs, include them in the command or run:
+
+```bash
+git diff --check
+```
+
+## Public benchmark artifacts
+
+Please be deliberate when editing files under `public_release/`.
+
+These files are stable public artifacts referenced by external writing. If you
+change them:
+
+- explain why in the PR description
+- say whether you changed documentation, harness behavior, or generated outputs
+- avoid unnecessary churn in generated files
+- keep public links and package names stable unless there is a strong reason to
+  change them
+
+## Style
 
 Please keep changes simple, explicit, and easy to audit.
 
@@ -99,61 +150,42 @@ For Rust code:
 - keep tool behavior deterministic where practical
 - keep tool output readable by both humans and models
 
----
+For docs and examples:
 
-## Testing and Validation
+- use exact commands when setup depends on a command
+- keep examples generic unless a specific repo or benchmark package is required
+- avoid private paths, local agent state, logs, and machine-specific config
 
-If you change behavior in `src/`, add or update tests when practical.
+## Pull requests
 
-At minimum:
+Push your branch:
 
-- run `cargo test`
-- verify the MCP surface still initializes and lists tools correctly
+```bash
+git push origin improve-search-ranking
+```
 
-If your change affects benchmark runners or public summaries, say clearly whether you:
-
-- changed only documentation or labeling
-- changed harness behavior
-- regenerated benchmark outputs
-
----
-
-## Public Benchmark Artifacts
-
-Please be deliberate when editing files under `public_release/`.
-
-These files are stable public artifacts referenced by external writing. If you change them:
-
-- explain why in the PR description
-- avoid unnecessary churn in generated files
-- keep public links and package names stable unless there is a strong reason to change them
-
----
-
-## Submitting a Pull Request
-
-Before you submit:
-
-- the scope is aligned for substantial changes
-- `cargo test` passes
-- `cargo fmt` has been run if needed
-- new behavior is covered by tests when practical
-
-When opening a PR, include:
+Open a pull request against `entireio/pgr` and include:
 
 - what changed
 - why it changed
 - how you tested it
+- whether any MCP behavior changed
 - whether any public benchmark or dataset artifacts were modified
 
-If the change affects MCP behavior, it is especially helpful to mention:
+Before submitting, make sure:
 
-- which tool changed
-- whether parameters changed
-- whether output format changed
+- the scope is aligned for substantial changes
+- `cargo test` passes for Rust behavior changes
+- `cargo fmt` has been run if needed
+- docs-only changes have been previewed or read back
+- new behavior is covered by tests when practical
 
----
+## Security
+
+If you discover a security issue, do not open a public GitHub issue. Please
+follow the instructions in [SECURITY.md](SECURITY.md).
 
 ## License
 
-By contributing to this repository, you agree that your contributions will be licensed under the same license as the project.
+By contributing to this repository, you agree that your contributions will be
+licensed under the same license as the project.
