@@ -9,6 +9,12 @@ tasks:
     cmds:
       - task --list
 
+  deps:
+    desc: Install dependencies (Rust toolchain and ripgrep)
+    cmds:
+      - winget install Rustlang.Rustup --accept-package-agreements --accept-source-agreements
+      - winget install BurntSushi.ripgrep --accept-package-agreements --accept-source-agreements
+
   check:
     desc: Verify prerequisites (cargo and rg are on PATH)
     cmds:
