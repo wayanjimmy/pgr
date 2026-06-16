@@ -1,0 +1,31 @@
+version: '3'
+
+vars:
+  binary: pgr
+
+tasks:
+  default:
+    desc: List all tasks
+    cmds:
+      - task --list
+
+  check:
+    desc: Verify prerequisites (cargo and rg are on PATH)
+    cmds:
+      - cargo --version
+      - rg --version
+
+  build:
+    desc: Compile release binary
+    cmds:
+      - cargo build --release
+
+  install:
+    desc: Install binary to cargo bin directory
+    cmds:
+      - cargo install --path .
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - cargo clean
